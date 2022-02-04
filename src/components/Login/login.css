@@ -1,0 +1,12 @@
+.login-main {
+    background-image: url('../../assets/img/login-bg.png');
+    min-height: 100vh;
+}
+.login-main .ant-form-item-control-input-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.login-main .login-sighup-btn .ant-form-item-control-input-content{
+    justify-content: center;
+}

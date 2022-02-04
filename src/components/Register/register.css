@@ -1,0 +1,9 @@
+.register-main {
+    background-image: url('../../assets/img/login-bg.png');
+    min-height: 100vh;
+}
+.register-main .ant-form-item-control-input-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
