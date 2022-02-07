@@ -6,21 +6,9 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import AuthService from "../../services/auth.service";
 import Logo from '../../assets/img/logo.svg';
 import './login.css';
+import { withTranslation } from 'react-i18next';
 
-// reset form fields when modal is form, closed
-
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
-
-export default class LoginForm extends Component {
-
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -48,38 +36,24 @@ export default class LoginForm extends Component {
   }
 
   handleLogin(e) {
-   
     e.preventDefault();
-
     this.setState({
       message: "",
       loading: true,
     });
 
-    //if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.email, this.state.password).then(
-        (data) => {
-          // console.log(data); 
-          // this.props.history.push("/dashboard");
-          window.location.href="/dashboard";
-          
-          // window.location.reload();
-        },
-        (error) => {
-          console.log(error.response.data.body);
-          const resMessage =(error.response && error.response.data && error.response.data.body) || error.message || error.toString();
-
-          this.setState({
-            loading: false,
-            message: resMessage,
-          });
-        }
-      );
-    // } else {
-    //   this.setState({
-    //     loading: false,
-    //   });
-    // }
+    // login api call
+    AuthService.login(this.state.email, this.state.password).then(
+      (data) => {
+        window.location.href="/dashboard";
+      },
+      (error) => {
+        const resMessage =(error.response && error.response.data && error.response.data.body) || error.message || error.toString();
+        this.setState({
+          message: resMessage,
+        });
+      }
+    )
   }
   // ******** Local State ********* //
 
@@ -89,6 +63,7 @@ export default class LoginForm extends Component {
 
   // if (didMountRef.current) {
   render() {
+    const { t } = this.props;
     return (
       <Fragment>
         <Modal
@@ -120,13 +95,13 @@ export default class LoginForm extends Component {
         <Row justify="center" className="login-main" align="middle">
           <Col className="loginimg_text" align="center" span={6}>
             <img src={Logo} />
-            <h1>Pay and Park</h1>
-            <h3 text="red">Steuerung App und Mitgliederausweise</h3>
-            {this.state.message != "" ? <Alert style={{ 'margin-bottom': 10 }} message={this.state.message} type="error" showIcon /> : ''}
+            <h1>{t('title')}<br/>{t('business_portal')}</h1>
+            {/* <h3>Steuerung App und Mitgliederausweise</h3> */}
+            {this.state.message != "" ? <Alert className="mb-10" message={this.state.message} type="error" showIcon /> : ''}
             <Form name="normal_login" className="login-form" >
             <Form.Item className="login-sighup-btn">
-              <Button ><Link to="login">Login</Link></Button>
-              <Button ><Link to="register">Register</Link></Button>
+              <Button ><Link to="login">{t('login')}</Link></Button>
+              <Button ><Link to="register">{t('register')}</Link></Button>
             </Form.Item>
               <Form.Item
                 name="email"
@@ -142,7 +117,7 @@ export default class LoginForm extends Component {
               >
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Nutzer"
+                  placeholder={t('user')}
                 />
               </Form.Item>
 
@@ -158,7 +133,7 @@ export default class LoginForm extends Component {
                 <Input.Password
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="Password"
-                  placeholder="Passwort"
+                  placeholder={t('password')}
                   value={this.state.password}
                   onChange={this.onChangePassword}
                 />
@@ -167,9 +142,9 @@ export default class LoginForm extends Component {
                 <label>
                 <Input
                   type="checkbox"
-                /> Remember Me
+                /> {t('remember_me')}
                 </label>
-                <Button className="login-form-forgot pull-left">Passwort vergessen</Button>
+                <Button className="login-form-forgot pull-left">{t('forgot_password')}</Button>
               </Form.Item>
 
               <Form.Item>
@@ -180,7 +155,7 @@ export default class LoginForm extends Component {
                   className="login-form-button"
                   onClick={this.handleLogin}
                 >
-                  Anmeldung
+                  {t('submit')}
                 </Button>
               </Form.Item>
             </Form>
@@ -190,3 +165,5 @@ export default class LoginForm extends Component {
     );
   }
 };
+
+export default withTranslation()(LoginForm);

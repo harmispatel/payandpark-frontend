@@ -1,23 +1,12 @@
-import React, { useEffect, useRef, useState, Fragment,Component } from "react";
+import React, { Fragment,Component } from "react";
 import { useHistory,Route,Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Input,InputNumber ,Button, message, Modal, Row, Col, Alert,Cascader, Select,Checkbox   } from "antd";
+import { Form, Input ,Button, Col, Alert, Select, Row   } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import AuthService from "../../services/auth.service";
 import Logo from '../../assets/img/logo.svg';
 import './register.css';
-
-// reset form fields when modal is form, closed
-
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
+import { withTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
@@ -30,7 +19,7 @@ const prefixSelector = (
   </Form.Item>
 );
 
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
 
   constructor(props) {
     super(props);
@@ -50,7 +39,6 @@ export default class RegisterForm extends Component {
   }
 
   handleSubmit(e) {
-    alert(this.state.name);
     e.preventDefault();
     this.setState({
       message: "",
@@ -78,27 +66,22 @@ export default class RegisterForm extends Component {
     const value = e.target.value;
     this.setState({[name]: value});
   }
-  // ******** Local State ********* //
 
-  // ******** Redux State ********* //
-
-  // ******* useEffects ******** //
-
-  // if (didMountRef.current) {
   render() {
+    const { t } = this.props;
     return (
       <Fragment>
         <Row justify="center" className="register-main" align="middle">
           <Col className="loginimg_text" align="center" span={6}>
             <img src={Logo} />
-            <h1>Pay & Park<br/>Business Portal</h1>
+            <h1>{t('title')}<br/>{t('business_portal')}</h1>
             {this.state.message != "" ? <Alert style={{ 'margin-bottom': 10 }} message={this.state.message} type="error" /> : ''}
             <Form name="normal_login" className="login-form" >
             <Form.Item >
-              <Button className=""><Link to="login">Login</Link></Button>
-              <Button className=""><Link to="register">Register</Link></Button>
+              <Button ><Link to="login">{t('login')}</Link></Button>
+              <Button ><Link to="register">{t('register')}</Link></Button>
             </Form.Item>
-              <Form.Item
+              <Form.Item  name="title"
                 rules={[
                   {
                     required: true,
@@ -107,10 +90,10 @@ export default class RegisterForm extends Component {
                   },
                 ]}
               >
-                <Input placeholder="Camping/parking ground name" name="title" value={this.state.title} onChange={this.handleUserInput} />
+                <Input name="title" value={this.state.title} placeholder={t('camping_parking_ground_name')} onChange={this.handleUserInput}  />
               </Form.Item>
 
-              <Form.Item
+              <Form.Item name="streetName"
                 rules={[
                   {
                     required: true,
@@ -119,10 +102,10 @@ export default class RegisterForm extends Component {
                   },
                 ]}
               >
-                <Input placeholder="Street name and number" name="streetName" value={this.state.streetName} onChange={this.handleUserInput} />
+                <Input placeholder={t('street_name_and_number')} name="streetName" value={this.state.streetName} onChange={this.handleUserInput} />
               </Form.Item>
 
-              <Form.Item
+              <Form.Item name="pincode"
                 rules={[
                   {
                     required: true,
@@ -131,10 +114,10 @@ export default class RegisterForm extends Component {
                   },
                 ]}
               >
-                <Input placeholder="Zip code city" name="pincode" value={this.state.pincode} onChange={this.handleUserInput} />
+                <Input placeholder={t('zip_code_city')} name="pincode" value={this.state.pincode} onChange={this.handleUserInput} />
               </Form.Item>
 
-              <Form.Item
+              <Form.Item name="name"
                 rules={[
                   {
                     required: true,
@@ -143,10 +126,10 @@ export default class RegisterForm extends Component {
                   },
                 ]}
               >
-                <Input placeholder="First/Last name" name="name" value={this.state.name} onChange={this.handleUserInput} />
+                <Input placeholder={t('first_last_name')} name="name" value={this.state.name} onChange={this.handleUserInput} />
               </Form.Item>
 
-              <Form.Item
+              <Form.Item name="email"
                 rules={[
                   {
                     required: true,
@@ -155,10 +138,10 @@ export default class RegisterForm extends Component {
                   },
                 ]}
               >
-                <Input placeholder="Email"  name="email" onChange={this.handleUserInput} value={this.state.email} />
+                <Input placeholder={t('email')}  name="email" onChange={this.handleUserInput} value={this.state.email} />
               </Form.Item>
 
-              <Form.Item
+              <Form.Item  name="phone"
                 rules={[
                   { 
                     required: true, 
@@ -167,10 +150,10 @@ export default class RegisterForm extends Component {
                   }
                 ]}
               >
-                <Input placeholder="Phone Number" name="phone" value={this.state.phone} onChange={this.handleUserInput} addonBefore={prefixSelector} style={{ width: '100%' }} />
+                <Input placeholder={t('phone_number')} name="phone" value={this.state.phone} onChange={this.handleUserInput} addonBefore={prefixSelector} style={{ width: '100%' }} />
               </Form.Item>
 
-              <Form.Item
+              <Form.Item name="password"
                 rules={[
                   {
                     required: true,
@@ -179,7 +162,7 @@ export default class RegisterForm extends Component {
                 ]}
                 hasFeedback
               >
-                <Input.Password placeholder="Password" name="password" value={this.state.password} onChange={this.handleUserInput} />
+                <Input.Password placeholder={t('password')} name="password" value={this.state.password} onChange={this.handleUserInput} />
               </Form.Item>
 
               <Form.Item
@@ -201,11 +184,11 @@ export default class RegisterForm extends Component {
                   }),
                 ]}
               >
-                <Input.Password placeholder="Confirm password" />
+                <Input.Password placeholder={t('confirm_password')} />
               </Form.Item>
               
               <Form.Item>
-                <span className="ant-form-text">By signing in, you accept our <Link className="change-anchor" to="">Terms of use</Link> and <Link className="change-anchor" to="" >Privacy Policy</Link></span>
+                <span className="ant-form-text">{t('by_signing_in')} <Link className="change-anchor" to="">{t('terms_of_use')}</Link> {t('and')} <Link className="change-anchor" to="" >{t('privacy_policy')}</Link></span>
               </Form.Item>
 
               <Form.Item>
@@ -226,3 +209,4 @@ export default class RegisterForm extends Component {
     );
   }
 };
+export default withTranslation()(RegisterForm);

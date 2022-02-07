@@ -1,9 +1,8 @@
 import axios from "axios";
-import {API_URL}  from "../config";
 class AuthService {
   login(email, password) {
     return axios
-      .post(API_URL + "/api/v1/auth/login", {
+      .post(`${process.env.REACT_APP_SERVER_URI}`+"/api/v1/auth/login", {
         email,
         password
       })
