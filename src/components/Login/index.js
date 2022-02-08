@@ -55,6 +55,10 @@ class LoginForm extends Component {
       }
     )
   }
+
+
+    
+
   // ******** Local State ********* //
 
   // ******** Redux State ********* //
@@ -64,6 +68,7 @@ class LoginForm extends Component {
   // if (didMountRef.current) {
   render() {
     const { t } = this.props;
+
     return (
       <Fragment>
         <Modal
@@ -110,8 +115,7 @@ class LoginForm extends Component {
                 rules={[
                   {
                     required: true,
-                    message:
-                      "Bitte geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein",
+                    message: t('email.required')
                   },
                 ]}
               >
@@ -126,7 +130,7 @@ class LoginForm extends Component {
                 rules={[
                   {
                     required: true,
-                    message: "Bitte geben Sie Ihr Passwort ein",
+                    message: t('password.required')
                   },
                 ]}
               >
@@ -147,8 +151,8 @@ class LoginForm extends Component {
                 <Button className="login-form-forgot pull-left">{t('forgot_password')}</Button>
               </Form.Item>
 
-              <Form.Item>
-                <Button
+              <Form.Item >
+                  <Button 
                   block="true"
                   type="primary"
                   htmlType="submit"

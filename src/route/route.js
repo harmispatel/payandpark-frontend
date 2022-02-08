@@ -1,11 +1,10 @@
 import React from "react";
-import { BrowserRouter,Router,Routes, Route } from "react-router-dom";
-
-import AuthService from "../services/auth.service";
+import { BrowserRouter,Routes, Route } from "react-router-dom";
+// import AuthService from "../services/auth.service";
 import routelist from "./routelist";
 
 function route() {
-  const user = AuthService.getCurrentUser();
+  // const user = AuthService.getCurrentUser();
   return (
     <BrowserRouter>
       <Routes>

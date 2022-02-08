@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { Layout, Menu, Link } from "antd";
+import { Layout, Menu } from "antd";
 import AuthService from "../../services/auth.service";
 
 function logOut() {

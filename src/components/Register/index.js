@@ -45,12 +45,11 @@ class RegisterForm extends Component {
       loading: true,
     });
 
-    AuthService.login(this.state.email, this.state.password).then(
+    AuthService.register(this.state.email, this.state.password,this.state.title,this.state.streetName,this.state.pincode,this.state.name,this.state.phone).then(
       (data) => {
-        window.location.href="/dashboard";
+        window.location.href="/login";
       },
       (error) => {
-        console.log(error.response.data.body);
         const resMessage =(error.response && error.response.data && error.response.data.body) || error.message || error.toString();
 
         this.setState({
@@ -84,9 +83,8 @@ class RegisterForm extends Component {
               <Form.Item  name="title"
                 rules={[
                   {
-                    required: true,
-                    message:
-                      "Title is required",
+                    // required: true,
+                    // message: "Title is required",
                   },
                 ]}
               >
@@ -96,9 +94,8 @@ class RegisterForm extends Component {
               <Form.Item name="streetName"
                 rules={[
                   {
-                    required: true,
-                    message:
-                      "Street name and number is required",
+                    // required: true,
+                    // message: "Street name and number is required",
                   },
                 ]}
               >
@@ -108,9 +105,8 @@ class RegisterForm extends Component {
               <Form.Item name="pincode"
                 rules={[
                   {
-                    required: true,
-                    message:
-                      "Pincode is required",
+                    // required: true,
+                    // message: "Pincode is required",
                   },
                 ]}
               >
@@ -120,9 +116,8 @@ class RegisterForm extends Component {
               <Form.Item name="name"
                 rules={[
                   {
-                    required: true,
-                    message:
-                      "First/Last name is required",
+                    // required: true,
+                    // message: "First/Last name is required",
                   },
                 ]}
               >
@@ -133,8 +128,7 @@ class RegisterForm extends Component {
                 rules={[
                   {
                     required: true,
-                    message:
-                      "Email address please enter",
+                    message: "Email address please enter",
                   },
                 ]}
               >
@@ -144,9 +138,8 @@ class RegisterForm extends Component {
               <Form.Item  name="phone"
                 rules={[
                   { 
-                    required: true, 
-                    message: 
-                      'Please input your phone number!' 
+                    // required: true, 
+                    // message:  'Please input your phone number!' 
                   }
                 ]}
               >
@@ -199,7 +192,7 @@ class RegisterForm extends Component {
                   className="login-form-button"
                   onClick={this.handleSubmit}
                 >
-                  Register
+                  {t('register')}
                 </Button>
               </Form.Item>
             </Form>

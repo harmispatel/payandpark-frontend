@@ -22,6 +22,20 @@ class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));
   }
+
+  register(email, password, title, streetName, pincode, name, phone) {
+    return axios
+      .post(`${process.env.REACT_APP_SERVER_URI}`+"/api/v1/admins/create", {
+        email,
+        password
+      })
+      .then(response => {
+        // if (response.data.token && response.data.user) {
+        //   localStorage.setItem("token", response.data.token);
+        //   localStorage.setItem("user", JSON.stringify(response.data.user));
+        // }
+      });
+  }
 }
 
 export default new AuthService();

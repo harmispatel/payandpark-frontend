@@ -7,7 +7,7 @@
     "user":"user",
     "password":"Password",
     "confirm_password":"Confirm password",
-    "password.required":"Please enter your password",
+    "password.required":"Bitte geben Sie Ihr Passwort ein",
     "remember_me":"Remember Me",
     "forgot_password":"Forgot Password",
     "camping_parking_ground_name":"Camping/parking ground name",
@@ -20,5 +20,6 @@
     "terms_of_use":"Terms of use",
     "and":"and",
     "privacy_policy":"Privacy Policy",
-    "submit":"Submit"
+    "submit":"Submit",
+    "email.required":"Bitte geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein"
 }

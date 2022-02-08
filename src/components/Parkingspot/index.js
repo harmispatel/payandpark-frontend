@@ -159,21 +159,22 @@ function Campsite() {
   };
 
   async function fetchCampingspots() {
-    let response = await fetch(
-      `${process.env.REACT_APP_SERVER_URI}/campsites/listCampingspotsowner/61d424eec5843c3166fe7457`,
-      {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    let campingspot = await response.json();
-    for (let i = 0; i < campingspot.length; i++) {
-      campingspot[i].key = campingspot[i]._id;
-    }
-    setSpotId(campingspot.length + 1);
+    // let response = await fetch(
+    //   `${process.env.REACT_APP_SERVER_URI}/campsites/listCampingspotsowner/61d424eec5843c3166fe7457`,
+    //   {
+    //     method: "GET",
+    //     mode: "cors",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // let campingspot = await response.json();
+    // for (let i = 0; i < campingspot.length; i++) {
+    //   campingspot[i].key = campingspot[i]._id;
+    // }
+    // setSpotId(campingspot.length + 1);
+    let campingspot = [];
     setCampingspot(campingspot);
   }
 

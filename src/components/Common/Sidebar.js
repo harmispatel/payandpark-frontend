@@ -16,11 +16,22 @@ import Dashboard from "../Dashboard";
 import Footer from "./Footer";
 import routelist from "../../route/routelist";
 
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
+
+const menuList = [
+  { icon: <DashboardOutlined/>, label: 'Dashboard', path: '/dashboard' },
+  { icon: <FormOutlined/>, label: 'Admins', path: '/admin' },
+  { icon: <TableOutlined/>, label: 'Bookings', path: '/booking' },
+  { icon: <ProfileOutlined/>, label: 'Payment and Invoices', path: '/invoice' },
+  { icon: <CheckCircleOutlined/>, label: 'Parking/Camping Spots', path: '/parkingspot' },
+  { icon: <UserOutlined/>, label: 'Information', path: '/qrgenerator' }
+];
 
 const SideBarMenu = () => {
     const location = useLocation();
     let getcurrent = location.pathname;
+    let selectedKeys = (getcurrent != "" && getcurrent != "/") ? [getcurrent] : ['/dashboard'];
+
   return (
     <Layout>
         <AdminNavbar
@@ -32,32 +43,19 @@ const SideBarMenu = () => {
           breakpoint="lg"
           collapsedWidth="0"
           onBreakpoint={(broken) => {
-            console.log(broken);
+            //console.log(broken);
           }}
           onCollapse={(collapsed, type) => {
-            console.log(collapsed, type);
+            //console.log(collapsed, type);
           }}
           style={{ background: "white" }}
         >
-          <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1" icon={<DashboardOutlined />}>
-              <Link to="dashboard">Dashboard</Link>
-            </Menu.Item>
-            <Menu.Item key="2" icon={<FormOutlined />}>
-              <Link to="admin">Admins</Link>
-            </Menu.Item>
-            <Menu.Item key="3" icon={<TableOutlined />}>
-              <Link to="booking">Bookings</Link>
-            </Menu.Item>
-            <Menu.Item key="4" icon={<ProfileOutlined />}>
-              <Link to="invoice">Payment and Invoices</Link>
-            </Menu.Item>
-            <Menu.Item key="5" icon={<CheckCircleOutlined />}>
-              <Link to="parkingspot">Parking/Camping Spots</Link>
-            </Menu.Item>
-            <Menu.Item key="6" icon={<UserOutlined />}>
-                <Link to="qrgenerator">Information</Link>
-            </Menu.Item>
+          <Menu theme="light" mode="inline" defaultSelectedKeys={['/dashboard']} defaultSelectedKeys={selectedKeys}>
+            {menuList.map((menuone, key) => (
+              <Menu.Item key={menuone.path} icon={menuone.icon}>
+                <Link to={menuone.path}>{menuone.label}</Link>
+              </Menu.Item>
+            ))}
           </Menu>
         </Sider>
         <Layout>

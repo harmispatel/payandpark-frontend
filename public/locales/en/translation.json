@@ -20,5 +20,6 @@
   "terms_of_use":"Terms of use",
   "and":"and",
   "privacy_policy":"Privacy Policy",
-  "submit":"Submit"
+  "submit":"Submit",
+  "email.required":"Please enter your email"
 }
